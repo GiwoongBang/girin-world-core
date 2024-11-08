@@ -1,0 +1,58 @@
+name: Deploy To EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Github Repository Pull
+        uses: actions/checkout@v4
+
+      - name: Install JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 17
+
+      - name: Create application.properties
+        run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > src/main/resources/application.properties
+
+      - name: Test && Build
+        run: ./gradlew clean build
+
+      - name: Setting up AWS credentials for AWS Resource Access
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ap-northeast-2
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Login To ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Create Docker Image
+        run: docker build -t girin-server .
+
+      - name: Tagging Docker Images
+        run: docker tag girin-server ${{ steps.login-ecr.outputs.registry }}/girin-server:latest
+
+      - name: Push Docker Image to ECR
+        run: docker push ${{ steps.login-ecr.outputs.registry }}/girin-server:latest
+
+      - name: Compressing
+        run: tar -czvf $GITHUB_SHA.tar.gz appspec.yml scripts
+
+      - name: Uploading a Project Folder to S3
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.tar.gz s3://girin-server/$GITHUB_SHA.tar.gz
+
+      - name: Use CodeDeploy to distribute project code to EC2
+        run: aws deploy create-deployment
+          --application-name girin-server
+          --deployment-group-name Production
+          --deployment-config-name CodeDeployDefault.AllAtOnce
+          --s3-location bucket=girin-server,bundleType=tgz,key=$GITHUB_SHA.tar.gz
