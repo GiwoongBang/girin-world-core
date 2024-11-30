@@ -1,4 +1,4 @@
-package world.girin.core;
+package world.girin.core.apis;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
