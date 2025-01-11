@@ -57,7 +57,6 @@ public class DetailCategoryProvider implements TableDataProviderInterface<Detail
                             detailCategoryMap.put("title", entity.getTitle());
                             detailCategoryMap.put("lat", entity.getLat());
                             detailCategoryMap.put("lng", entity.getLng());
-                            detailCategoryMap.put("altitude", entity.getAltitude());
                             detailCategoryMap.put("updatedAt", entity.getUpdatedAt());
 
                             return detailCategoryMap;

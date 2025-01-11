@@ -22,7 +22,4 @@ public class DetailCategoryRequestDto {
     @NotNull(message = "Longitude는 필수입니다.")
     private Double lng;
 
-    @NotNull(message = "Altitude는 필수입니다.")
-    private Double altitude;
-
 }

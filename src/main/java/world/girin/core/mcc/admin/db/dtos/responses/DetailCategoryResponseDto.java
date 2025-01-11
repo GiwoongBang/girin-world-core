@@ -23,14 +23,12 @@ public class DetailCategoryResponseDto extends BaseResponseDto {
 
     private double lng;
 
-    private double altitude;
-
     private LocalDateTime updatedAt;
 
 
     @Builder
     private DetailCategoryResponseDto(Long id, SubCategoryResponseDto subCategory, DetailCategoryType type,
-                                      String title, double lat, double lng, double altitude,
+                                      String title, double lat, double lng,
                                       LocalDateTime updatedAt, String errorMessage) {
         this.id = id;
         this.subCategory = subCategory;
@@ -38,7 +36,6 @@ public class DetailCategoryResponseDto extends BaseResponseDto {
         this.title = title;
         this.lat = lat;
         this.lng = lng;
-        this.altitude = altitude;
         this.updatedAt = updatedAt;
         setErrorMessage(errorMessage);
     }
@@ -52,7 +49,6 @@ public class DetailCategoryResponseDto extends BaseResponseDto {
                 .title(detailCategoryEntity.getTitle())
                 .lat(detailCategoryEntity.getLat())
                 .lng(detailCategoryEntity.getLng())
-                .altitude(detailCategoryEntity.getAltitude())
                 .updatedAt(detailCategoryEntity.getUpdatedAt())
                 .errorMessage(errorMessage)
                 .build();

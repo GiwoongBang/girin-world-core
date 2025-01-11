@@ -38,9 +38,6 @@ public class DetailCategoryEntity {
     @Column(nullable = false)
     private double lng;
 
-    @Column(nullable = false)
-    private double altitude;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     @Column(name="updated_at")
     private LocalDateTime updatedAt;
@@ -59,13 +56,12 @@ public class DetailCategoryEntity {
 
     @Builder
     public DetailCategoryEntity(SubCategoryEntity subCategory, DetailCategoryType type, String title,
-                                double lat, double lng, double altitude, LocalDateTime updatedAt) {
+                                double lat, double lng, LocalDateTime updatedAt) {
         this.subCategory = subCategory;
         this.type = type;
         this.title = title;
         this.lat = lat;
         this.lng = lng;
-        this.altitude = altitude;
         this.updatedAt = updatedAt;
     }
 
@@ -79,7 +75,6 @@ public class DetailCategoryEntity {
                 .title(dto.getTitle())
                 .lat(dto.getLat())
                 .lng(dto.getLng())
-                .altitude(dto.getAltitude())
                 .updatedAt(LocalDateTime.now())
                 .build();
     }
@@ -92,7 +87,6 @@ public class DetailCategoryEntity {
         this.title = requestDto.getTitle();
         this.lat = requestDto.getLat();
         this.lng = requestDto.getLng();
-        this.altitude = requestDto.getAltitude();
         this.updatedAt = LocalDateTime.now();
     }
 
