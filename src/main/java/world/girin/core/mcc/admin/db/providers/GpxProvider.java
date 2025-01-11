@@ -108,10 +108,6 @@ public class GpxProvider implements TableDataProviderInterface<GpxRequestDto, Gp
             GpxEntity gpxEntity = GpxEntity.of(requestDto, subCategory, startPoint, endPoint);
             gpxRepository.save(gpxEntity);
 
-            SubCategoryEntity reverseSubCategory = endPoint.getSubCategory();
-            GpxEntity reverseGpxEntity = GpxEntity.of(requestDto, reverseSubCategory, endPoint, startPoint);
-            gpxRepository.save(reverseGpxEntity);
-
             GpxResponseDto resData = GpxResponseDto.of(gpxEntity, successMessage);
 
             return ResponseEntity.ok(resData);
