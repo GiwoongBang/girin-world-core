@@ -58,7 +58,6 @@ public class SubCategoryProvider implements TableDataProviderInterface<SubCatego
                             subCategoryMap.put("description", entity.getDescription());
                             subCategoryMap.put("safetyNotes", entity.getSafetyNotes());
                             subCategoryMap.put("placeInfo", entity.getPlaceInfo());
-                            subCategoryMap.put("background", entity.getBackground());
                             subCategoryMap.put("thumbnailImg", entity.getThumbnailImg());
                             subCategoryMap.put("updatedAt", entity.getUpdatedAt());
 

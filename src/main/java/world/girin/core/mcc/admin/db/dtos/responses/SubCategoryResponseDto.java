@@ -29,8 +29,6 @@ public class SubCategoryResponseDto extends BaseResponseDto {
 
     private String placeInfo;
 
-    private String background;
-
     private String thumbnailImg;
 
     private LocalDateTime updatedAt;
@@ -38,8 +36,8 @@ public class SubCategoryResponseDto extends BaseResponseDto {
     @Builder
     private SubCategoryResponseDto(Long id, MainCategoryResponseDto mainCategory,
                                       String name, double lat, double lng, double altitude,
-                                      String description, List<String> safetyNotes, String placeInfo, String background,
-                                      LocalDateTime updatedAt, String errorMessage) {
+                                      String description, List<String> safetyNotes, String placeInfo,
+                                      String thumbnailImg, LocalDateTime updatedAt, String errorMessage) {
         this.id = id;
         this.mainCategory = mainCategory;
         this.name = name;
@@ -49,7 +47,7 @@ public class SubCategoryResponseDto extends BaseResponseDto {
         this.description = description;
         this.safetyNotes = safetyNotes;
         this.placeInfo = placeInfo;
-        this.background = background;
+        this.thumbnailImg = thumbnailImg;
         this.updatedAt = updatedAt;
         setErrorMessage(errorMessage);
     }
@@ -65,7 +63,7 @@ public class SubCategoryResponseDto extends BaseResponseDto {
                 .description(subCategoryEntity.getDescription())
                 .safetyNotes(subCategoryEntity.getSafetyNotes())
                 .placeInfo(subCategoryEntity.getPlaceInfo())
-                .background(subCategoryEntity.getBackground())
+                .thumbnailImg(subCategoryEntity.getThumbnailImg())
                 .updatedAt(subCategoryEntity.getUpdatedAt())
                 .errorMessage(errorMessage)
                 .build();

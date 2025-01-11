@@ -21,7 +21,6 @@ public class SubCategoryRequestDto {
     @NotNull(message = "Longitude는 필수입니다.")
     private Double lng;
 
-    @NotNull(message = "Altitude는 필수입니다.")
     private Double altitude;
 
     private String description;
@@ -29,8 +28,6 @@ public class SubCategoryRequestDto {
     private List<String> safetyNotes;
 
     private String placeInfo;
-
-    private String background;
 
     private String thumbnailImg;
 

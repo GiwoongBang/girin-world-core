@@ -37,7 +37,7 @@ public class SubCategoryEntity {
     @Column(nullable = false)
     private double lng;
 
-    @Column(nullable = false)
+    @Column
     private double altitude;
 
     @Column(columnDefinition = "TEXT")
@@ -49,9 +49,6 @@ public class SubCategoryEntity {
 
     @Column(name="place_info")
     private String placeInfo;
-
-    @Column(columnDefinition = "TEXT")
-    private String background;
 
     @Column(name="thumbnail_image")
     private String thumbnailImg;
@@ -74,7 +71,7 @@ public class SubCategoryEntity {
 
     @Builder
     public SubCategoryEntity(MainCategoryEntity mainCategory, String name, double lat, double lng, double altitude,
-                             String description, List<String> safetyNotes, String placeInfo, String background,
+                             String description, List<String> safetyNotes, String placeInfo,
                              String thumbnailImg, LocalDateTime updatedAt) {
         this.mainCategory = mainCategory;
         this.name = name;
@@ -84,7 +81,6 @@ public class SubCategoryEntity {
         this.description = description;
         this.safetyNotes = safetyNotes;
         this.placeInfo = placeInfo;
-        this.background = background;
         this.thumbnailImg = thumbnailImg;
         this.updatedAt = updatedAt;
     }
@@ -100,7 +96,6 @@ public class SubCategoryEntity {
                 .description(dto.getDescription())
                 .safetyNotes(dto.getSafetyNotes())
                 .placeInfo(dto.getPlaceInfo())
-                .background(dto.getBackground())
                 .thumbnailImg(dto.getThumbnailImg())
                 .updatedAt(LocalDateTime.now())
                 .build();
@@ -115,7 +110,6 @@ public class SubCategoryEntity {
         this.description = dto.getDescription();
         this.safetyNotes = dto.getSafetyNotes();
         this.placeInfo = dto.getPlaceInfo();
-        this.background = dto.getBackground();
         this.thumbnailImg = dto.getThumbnailImg();
         this.updatedAt = LocalDateTime.now();
     }
