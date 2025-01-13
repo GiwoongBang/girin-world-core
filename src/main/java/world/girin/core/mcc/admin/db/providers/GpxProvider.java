@@ -60,8 +60,8 @@ public class GpxProvider implements TableDataProviderInterface<GpxRequestDto, Gp
                                     "title", entity.getStartPoint().getTitle()
                             ));
                             gpxMap.put("endPoint", Map.of(
-                                    "id", entity.getStartPoint().getId(),
-                                    "title", entity.getStartPoint().getTitle()
+                                    "id", entity.getEndPoint().getId(),
+                                    "title", entity.getEndPoint().getTitle()
                             ));
                             gpxMap.put("gpxUrl", entity.getGpxUrl());
                             gpxMap.put("createdAt", entity.getCreatedAt());
