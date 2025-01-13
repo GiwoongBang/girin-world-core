@@ -11,7 +11,11 @@ public enum DetailCategoryType {
     SHELTER("대피소"),
     CROSSROAD("갈림길"),
     TEMPLE("절"),
-    PEAK("봉우리");
+    PEAK("봉우리"),
+    HELIPAD("헬기장"),
+    START_POINT("시작점"),
+    TRAILHEAD("들머리"),
+    ;
 
     private final String type;
 
