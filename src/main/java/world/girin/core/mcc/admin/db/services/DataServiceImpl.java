@@ -25,7 +25,7 @@ public class DataServiceImpl<RequestDto, ResponseDto> implements DataServiceInte
         } catch (Exception e) {
 
             return ResponseEntity.badRequest().body(Map.of(
-                    "error", "유효하지 않은 테이블 이름: " + tableName
+                    "error", "유효하지 않은 테이블 이름: " + tableName + " || " + e.getMessage()
             ));
         }
     }
