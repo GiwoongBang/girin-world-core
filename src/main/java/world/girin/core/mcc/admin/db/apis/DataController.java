@@ -27,6 +27,22 @@ public class DataController<RequestDto, ResponseDto> {
         }
     }
 
+    @GetMapping("/{tableName}/{subCategoryId}")
+    public ResponseEntity<?> getDetailCategoriesBySubCategory(@PathVariable("tableName") String tableName,
+                                                              @PathVariable("subCategoryId") Long subCategoryId) {
+
+        try {
+
+            return dataService.getDetailsBySubCategoryId(tableName, subCategoryId);
+        } catch (IllegalArgumentException e) {
+
+            return handleBadRequest("유효하지 않은 요청: " + e.getMessage());
+        } catch (Exception e) {
+
+            return handleServerError("데이터 조회 중 서버 오류가 발생했습니다.");
+        }
+    }
+
     @PostMapping("/{tableName}")
     public ResponseEntity<ResponseDto> createData(
             @PathVariable("tableName") String tableName,

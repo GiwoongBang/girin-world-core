@@ -15,6 +15,7 @@ import world.girin.core.mcc.admin.db.repositories.SubCategoryRepository;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -79,6 +80,42 @@ public class DetailCategoryProvider implements TableDataProviderInterface<Detail
                                 .collect(Collectors.toList())
                 )
         );
+    }
+
+    @Override
+    public List<Map<String, Object>> getDetailsBySubCategoryId(String tableName, Long subCategoryId) {
+
+        if (!"detail-category".equalsIgnoreCase(tableName)) {
+            return (List<Map<String, Object>>) ResponseEntity.badRequest().body(List.of(Map.of("error", "Invalid table name: " + tableName)));
+        }
+
+        try {
+            SubCategoryEntity subCategory = subCategoryRepository.findById(subCategoryId)
+                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 SubCategory ID: " + subCategoryId));
+
+            List<Map<String, Object>> detailCategories =
+                    detailCategoryRepository.findBySubCategory(subCategory)
+                            .stream()
+                            .map(entity -> Map.of(
+                                    "id", entity.getId(),
+                                    "subCategory", Map.of(
+                                            "id", entity.getSubCategory().getId(),
+                                            "name", entity.getSubCategory().getName()
+                                    ),
+                                    "type", entity.getType().getType(),
+                                    "title", entity.getTitle(),
+                                    "lat", entity.getLat(),
+                                    "lng", entity.getLng(),
+                                    "updatedAt", entity.getUpdatedAt()
+                            ))
+                            .toList();
+
+            return detailCategories;
+        } catch (IllegalArgumentException e) {
+            return (List<Map<String, Object>>) ResponseEntity.badRequest().body("데이터 조회 실패: " + e.getMessage());
+        } catch (Exception e) {
+            return (List<Map<String, Object>>) ResponseEntity.status(500).body("데이터 조회 중 서버 오류가 발생했습니다.");
+        }
     }
 
     @Transactional

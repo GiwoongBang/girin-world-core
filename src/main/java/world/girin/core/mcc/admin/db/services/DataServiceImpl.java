@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import world.girin.core.mcc.admin.db.interfaces.DataServiceInterface;
 import world.girin.core.mcc.admin.db.interfaces.TableDataProviderInterface;
 
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -27,6 +28,20 @@ public class DataServiceImpl<RequestDto, ResponseDto> implements DataServiceInte
             return ResponseEntity.badRequest().body(Map.of(
                     "error", "유효하지 않은 테이블 이름: " + tableName + " || " + e.getMessage()
             ));
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<Map<String, Object>>> getDetailsBySubCategoryId(String tableName, Long subCategoryId) {
+        try {
+            TableDataProviderInterface<RequestDto, ResponseDto> provider = getProvider(tableName);
+
+            return ResponseEntity.ok(provider.getDetailsBySubCategoryId(tableName, subCategoryId));
+        } catch (Exception e) {
+
+            return ResponseEntity.badRequest().body((List.of(Map.of(
+                    "error", "유효하지 않은 테이블 이름: " + tableName + " || " + e.getMessage()
+            ))));
         }
     }
 

@@ -2,6 +2,7 @@ package world.girin.core.mcc.admin.db.interfaces;
 
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
 import java.util.Map;
 
 public interface TableDataProviderInterface<RequestDto, ResponseDto> {
@@ -11,6 +12,8 @@ public interface TableDataProviderInterface<RequestDto, ResponseDto> {
     Class<ResponseDto> getResponseDtoClass();
 
     Map<String, Object> getTableData();
+
+    List<Map<String, Object>> getDetailsBySubCategoryId(String tableName, Long subCategoryId);
 
     ResponseEntity<ResponseDto> createData(RequestDto requestDto);
 

@@ -13,6 +13,7 @@ import world.girin.core.mcc.admin.db.repositories.SubCategoryRepository;
 import world.girin.core.mcc.admin.db.repositories.TagRepository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -160,6 +161,11 @@ public class TagProvider implements TableDataProviderInterface<TagRequestDto, Ta
 
             return ResponseEntity.status(500).body("Tag 데이터 삭제 중 오류가 발생했습니다.");
         }
+    }
+
+    @Override
+    public List<Map<String, Object>> getDetailsBySubCategoryId(String tableName, Long subCategoryId) {
+        return List.of();
     }
 
 }

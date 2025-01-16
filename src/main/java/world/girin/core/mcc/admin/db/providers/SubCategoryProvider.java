@@ -13,6 +13,7 @@ import world.girin.core.mcc.admin.db.repositories.MainCategoryRepository;
 import world.girin.core.mcc.admin.db.repositories.SubCategoryRepository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -167,6 +168,11 @@ public class SubCategoryProvider implements TableDataProviderInterface<SubCatego
 
             return ResponseEntity.status(500).body("SubCategory 데이터 삭제 중 서버 오류가 발생했습니다.");
         }
+    }
+
+    @Override
+    public List<Map<String, Object>> getDetailsBySubCategoryId(String tableName, Long subCategoryId) {
+        return List.of();
     }
 
 }
